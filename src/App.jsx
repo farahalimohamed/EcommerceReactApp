@@ -7,6 +7,8 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Cart from "./Pages/Cart/Cart";
 import Categories from "./Pages/Categories/Categories";
+import TokenContextProvider from "./Context/TokenContext";
+import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -16,19 +18,35 @@ export default function App() {
       children: [
         {
           index: true,
-          element: <Home />,
+          element: (
+            <ProtectedRoutes>
+              <Home />
+            </ProtectedRoutes>
+          ),
         },
         {
           path: "products",
-          element: <Products />,
+          element: (
+            <ProtectedRoutes>
+              <Products />,
+            </ProtectedRoutes>
+          ),
         },
         {
           path: "cart",
-          element: <Cart />
+          element: (
+            <ProtectedRoutes>
+              <Cart />,
+            </ProtectedRoutes>
+          ),
         },
         {
           path: "categories",
-          element: <Categories />
+          element: (
+            <ProtectedRoutes>
+              <Categories />,
+            </ProtectedRoutes>
+          ),
         },
         {
           path: "login",
@@ -41,5 +59,9 @@ export default function App() {
       ],
     },
   ]);
-  return <RouterProvider router={routes}></RouterProvider>;
+  return (
+    <TokenContextProvider>
+      <RouterProvider router={routes}></RouterProvider>;
+    </TokenContextProvider>
+  );
 }

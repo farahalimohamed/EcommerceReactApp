@@ -3,12 +3,14 @@ import styles from "./Login.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { tokenContext } from "../../Context/TokenContext";
 export default function Login() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const {setToken} = useContext(tokenContext);
   const initialValues = {
     email: "",
     password: "",
@@ -26,6 +28,8 @@ export default function Login() {
     const response = await axios
       .post("https://ecommerce.routemisr.com/api/v1/auth/signin", data)
       .then((res) => {
+        setToken(res.data.token);
+        localStorage.setItem("token", res.data.token);
         setErrorMsg(null);
         setIsLoading(false);
         navigate("/");
@@ -45,12 +49,12 @@ export default function Login() {
     <section className="bg-gray-50 dark:bg-gray-900 pb-10 pt-5">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="flex items-center mb-6 text-3xl font-semibold text-gray-900 dark:text-white">
-          Register Now
+          Sign In
         </div>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Create an account
+              Sign In
             </h1>
             <form
               className="space-y-4 md:space-y-6"
@@ -107,14 +111,14 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled
-                  className="w-full text-white text-center flex justify-center items-center bg-[#0AAD0A] disabled:bg-[#87d387] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  className="w-full text-white flex justify-center items-center bg-[#0AAD0A] disabled:bg-[#87d387] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   <AiOutlineLoading3Quarters className="animate-spin" />
                 </button>
               ) : (
                 <button
                   type="submit"
-                  className="w-full text-white bg-[#0AAD0A] disabled:bg-[#87d387] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  className="btn"
                   disabled={!formik.isValid && formik.dirty}
                 >
                   Login

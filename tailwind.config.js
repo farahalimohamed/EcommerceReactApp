@@ -17,6 +17,12 @@ export default {
       },
     },
     extend: {},
+    variants: {
+      extend: {
+        backgroundColor: ['disabled'], 
+        opacity: ['disabled'],
+      },
+    },
   },
   plugins: [
     flowbite.plugin(),
