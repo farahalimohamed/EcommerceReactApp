@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./Pages/MainLayout/MainLayout";
+import AuthLayout from "./Pages/AuthLayout/AuthLayout";
 import Home from "./Pages/Home/Home";
 import Products from "./Pages/Products/Products";
 import Login from "./Pages/Login/Login";
@@ -48,6 +49,12 @@ export default function App() {
             </ProtectedRoutes>
           ),
         },
+      ],
+    },
+    {
+      path: "/",
+      element: <AuthLayout />, 
+      children: [
         {
           path: "login",
           element: <Login />,
