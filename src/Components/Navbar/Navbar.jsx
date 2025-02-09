@@ -11,6 +11,7 @@ import {
 import Logo from "./../../../public/assets/images/freshcart-logo.svg";
 import { useContext } from "react";
 import { tokenContext } from "../../Context/TokenContext";
+import { AiOutlineShopping } from "react-icons/ai";
 export default function Navbar() {
   const { token, setToken } = useContext(tokenContext);
   const navigate = useNavigate();
@@ -69,18 +70,6 @@ export default function Navbar() {
                     aria-current="page"
                   >
                     Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to={"cart"}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    }
-                  >
-                    Cart
                   </NavLink>
                 </li>
                 <li>
@@ -163,14 +152,28 @@ export default function Navbar() {
               </a>
             </li>
             {token && (
-              <li>
-                <div
-                  onClick={logoutUser}
-                  className="block cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  SignOut
-                </div>
-              </li>
+              <>
+                <li>
+                  <NavLink
+                    to={"cart"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                  >
+                    <AiOutlineShopping />
+                  </NavLink>
+                </li>
+                <li>
+                  <div
+                    onClick={logoutUser}
+                    className="block cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    SignOut
+                  </div>
+                </li>
+              </>
             )}
             {!token && (
               <>
