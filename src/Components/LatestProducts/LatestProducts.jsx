@@ -21,7 +21,10 @@ export default function LatestProducts() {
     <div className="row">
       {products.length > 0 &&
         products.map((product) => (
-          <div className="p-2 w-1/6" key={product.id}>
+          <div
+            className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6"
+            key={product.id}
+          >
             <ProductItem product={product} />
           </div>
         ))}
