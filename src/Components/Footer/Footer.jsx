@@ -1,5 +1,5 @@
 import styles from "./Footer.module.css";
-import Logo from "./../../../public/assets/images/freshcart-logo.svg";
+import Logo from "./../../../public/assets/images/freshcart-logo-black.svg";
 import { NavLink } from "react-router-dom";
 export default function Footer() {
   return (

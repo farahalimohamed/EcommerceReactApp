@@ -8,7 +8,7 @@ import {
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
-import Logo from "./../../../public/assets/images/freshcart-logo.svg";
+import Logo from "./../../../public/assets/images/freshcart-logo-black.svg";
 import { useContext } from "react";
 import { tokenContext } from "../../Context/TokenContext";
 import { AiOutlineShopping } from "react-icons/ai";
