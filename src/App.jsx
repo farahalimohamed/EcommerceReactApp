@@ -10,6 +10,7 @@ import Cart from "./Pages/Cart/Cart";
 import Categories from "./Pages/Categories/Categories";
 import TokenContextProvider from "./Context/TokenContext";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
+import ProductDetails from "./Pages/ProductDetails/ProductDetails";
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -30,6 +31,14 @@ export default function App() {
           element: (
             <ProtectedRoutes>
               <Products />,
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "productdetails/:productId",
+          element: (
+            <ProtectedRoutes>
+              <ProductDetails />,
             </ProtectedRoutes>
           ),
         },
@@ -68,7 +77,7 @@ export default function App() {
   ]);
   return (
     <TokenContextProvider>
-      <RouterProvider router={routes}></RouterProvider>;
+      <RouterProvider router={routes}></RouterProvider>
     </TokenContextProvider>
   );
 }
