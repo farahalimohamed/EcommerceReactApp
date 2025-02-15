@@ -1,8 +1,24 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
-import Logo from "./../../../public/assets/images/freshcart-logo.svg";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTiktok,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa";
+import Logo from "./../../../public/assets/images/freshcart-logo-black.svg";
+import { useContext } from "react";
+import { tokenContext } from "../../Context/TokenContext";
+import { AiOutlineShopping } from "react-icons/ai";
 export default function Navbar() {
+  const { token, setToken } = useContext(tokenContext);
+  const navigate = useNavigate();
+  function logoutUser(){
+    setToken(null);
+    navigate("/login");
+  }
   return (
     <nav className="bg-slate-100 border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -37,59 +53,52 @@ export default function Navbar() {
               />
             </svg>
           </button>
-          <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li>
-                <NavLink
-                  to={"/"}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                      : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  }
-                  aria-current="page"
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={"cart"}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                      : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  }
-                >
-                  Cart
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={"products"}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                      : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  }
-                >
-                  Products
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={"categories"}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                      : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  }
-                >
-                  Categories
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+          {token && (
+            <div
+              className="hidden w-full md:block md:w-auto"
+              id="navbar-default"
+            >
+              <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                  <NavLink
+                    to={"/"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                    aria-current="page"
+                  >
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"products"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                  >
+                    Products
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"categories"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                  >
+                    Categories
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -142,38 +151,58 @@ export default function Navbar() {
                 <FaTwitter />
               </a>
             </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                SignOut
-              </a>
-            </li>
-            <li>
-              <NavLink
-                to={"login"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                    : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                }
-              >
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={"register"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                    : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                }
-              >
-                Register
-              </NavLink>
-            </li>
+            {token && (
+              <>
+                <li>
+                  <NavLink
+                    to={"cart"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                  >
+                    <AiOutlineShopping />
+                  </NavLink>
+                </li>
+                <li>
+                  <div
+                    onClick={logoutUser}
+                    className="block cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    SignOut
+                  </div>
+                </li>
+              </>
+            )}
+            {!token && (
+              <>
+                <li>
+                  <NavLink
+                    to={"login"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                  >
+                    Login
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"register"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                  >
+                    Register
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
