@@ -11,6 +11,8 @@ import Categories from "./Pages/Categories/Categories";
 import TokenContextProvider from "./Context/TokenContext";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails";
+import { Offline } from "react-detect-offline";
+import { RiWifiOffLine } from "react-icons/ri";
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -77,6 +79,12 @@ export default function App() {
   ]);
   return (
     <TokenContextProvider>
+      <Offline>
+        <div className="offline fixed bottom-2 right-4 bg-blue-500 text-white p-3 rounded-md z-50">
+          <RiWifiOffLine className="inline" />
+          <span className="ml-2">You are offline!</span>
+        </div>
+      </Offline>
       <RouterProvider router={routes}></RouterProvider>
     </TokenContextProvider>
   );

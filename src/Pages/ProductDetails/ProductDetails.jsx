@@ -3,6 +3,7 @@ import styles from "./ProductDetails.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 export default function ProductDetails() {
   const [details, setDetails] = useState({});
   const [activeImage, setActiveImage] = useState(0);
@@ -20,6 +21,9 @@ export default function ProductDetails() {
   return (
     <>
       <div className="container">
+        <Helmet>
+          <title>{details.title}</title>
+        </Helmet>
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-wrap -mx-4">
             {/* Product Images */}
