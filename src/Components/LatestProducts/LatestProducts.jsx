@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./LatestProducts.module.css";
 import axios from "axios";
 import ProductItem from "../ProductItem/ProductItem";
 import Loader from "../Loader/Loader";
+import { CartContext } from "../../Context/CartContext";
+import toast from "react-hot-toast";
 
 export default function LatestProducts() {
   const [products, setProducts] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
   async function getProducts() {
     try {
@@ -28,19 +31,34 @@ export default function LatestProducts() {
     getProducts();
   }, []);
 
+  async function addProductToCart(id) {
+    let response = await addToCart(id);
+    if (response.status === "success") {
+      toast.success(response.message);
+    } else {
+      toast.error("Error adding product to cart");
+    }
+  }
+
   return (
-    <div className="row">
-      {products.length > 0 ?
-        products.map((product) => (
-          <div
-            className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6"
-            key={product.id}
-          >
-            <ProductItem product={product} />
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-4xl font-bold mb-5 text-center">Best Seller</h2>
+      <div className="font-sans p-4 mx-auto lg:max-w-6xl md:max-w-3xl">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        {products.length > 0 ? (
+          products.map((product) => (
+            <div key={product.id}>
+              <ProductItem
+                product={product}
+                addProductToCart={addProductToCart}
+              />
+            </div>
+            ))
+          ) : (
+            <Loader />
+          )}
           </div>
-        ))
-        : <Loader />
-      }
+      </div>
     </div>
   );
 }
