@@ -4,15 +4,29 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import { useContext } from "react";
+import { CartContext } from "../../Context/CartContext";
+import toast from "react-hot-toast";
 export default function ProductDetails() {
   const [details, setDetails] = useState({});
   const [activeImage, setActiveImage] = useState(0);
   const { productId } = useParams();
+  const { addToCart } = useContext(CartContext);
   async function getProductDetails() {
     await axios
       .get(`https://ecommerce.routemisr.com/api/v1/products/${productId}`)
       .then((res) => setDetails(res.data.data))
       .catch((err) => console.log(err));
+  }
+
+  async function addProductToCart(id) {
+    let response = await addToCart(id);
+    console.log(response);
+    if (response.status === "success") {
+      toast.success(response.message);
+    } else {
+      toast.error('Error adding product to cart');
+    }
   }
   useEffect(() => {
     getProductDetails();
@@ -96,7 +110,7 @@ export default function ProductDetails() {
                 />
               </div>
               <div className="flex space-x-4 mb-6">
-                <button className="bg-blue-700 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <button onClick={()=>{addProductToCart(details._id)}} className="bg-blue-700 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
