@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 export default function LatestProducts() {
   const [products, setProducts] = useState([]);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, setNumOfCartItems, setCartId } = useContext(CartContext);
 
   async function getProducts() {
     try {
@@ -34,6 +34,8 @@ export default function LatestProducts() {
   async function addProductToCart(id) {
     let response = await addToCart(id);
     if (response.status === "success") {
+      setNumOfCartItems(response.numOfCartItems);
+      setCartId(response.cartId);
       toast.success(response.message);
     } else {
       toast.error("Error adding product to cart");
