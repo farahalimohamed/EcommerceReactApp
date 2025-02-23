@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './Categories.module.css'
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 export default function Categories() {
   const [categories, setCategories] = useState([]);
     async function getCategories() {
@@ -19,6 +20,9 @@ export default function Categories() {
     
   return (
     <section className="py-8">
+      <Helmet>
+        <title>Categories</title>
+      </Helmet>
       <div className="mx-auto grid max-w-screen-xl grid-cols-2 gap-8 text-gray-500 dark:text-gray-400 sm:grid-cols-3 sm:gap-12 lg:grid-cols-6 px-4">
         {categories.map((category) => (
             <div
