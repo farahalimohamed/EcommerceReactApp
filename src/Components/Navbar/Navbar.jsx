@@ -1,18 +1,10 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaTiktok,
-  FaTwitter,
-  FaYoutube,
-} from "react-icons/fa";
-import Logo from "./../../../public/assets/images/freshcart-logo-black.svg";
+import Logo from "./../../../public/assets/images/freshcart-logo.svg";
 import { useContext } from "react";
 import { tokenContext } from "../../Context/TokenContext";
-import { AiOutlineShopping } from "react-icons/ai";
 import { CartContext } from "../../Context/CartContext";
+import { BsCart3 } from "react-icons/bs";
 export default function Navbar() {
   const { token, setToken } = useContext(tokenContext);
   const { numOfCartItems } = useContext(CartContext);
@@ -22,7 +14,7 @@ export default function Navbar() {
     navigate("/login");
   }
   return (
-    <nav className="bg-slate-100 border-gray-200 dark:bg-gray-900">
+    <nav>
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex items-center space-x-8">
           <Link
@@ -66,10 +58,9 @@ export default function Navbar() {
                     to={"/"}
                     className={({ isActive }) =>
                       isActive
-                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
-                    aria-current="page"
                   >
                     Home
                   </NavLink>
@@ -79,8 +70,8 @@ export default function Navbar() {
                     to={"products"}
                     className={({ isActive }) =>
                       isActive
-                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
                     Products
@@ -91,11 +82,23 @@ export default function Navbar() {
                     to={"categories"}
                     className={({ isActive }) =>
                       isActive
-                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
                     Categories
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"brands"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                  >
+                    Brands
                   </NavLink>
                 </li>
               </ul>
@@ -111,11 +114,11 @@ export default function Navbar() {
                     to={"cart"}
                     className={({ isActive }) =>
                       isActive
-                        ? "relative py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                        : "relative py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        ? "relative py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#5647ff] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "relative py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
-                    <AiOutlineShopping className="text-xl font-semibold" />
+                    <BsCart3 className="text-xl" />
                     <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex justify-center items-center bg-red-500 text-white p-2">
                       {numOfCartItems}
                     </span>
@@ -124,7 +127,7 @@ export default function Navbar() {
                 <li>
                   <div
                     onClick={logoutUser}
-                    className="block cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="block cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     SignOut
                   </div>
@@ -138,8 +141,8 @@ export default function Navbar() {
                     to={"login"}
                     className={({ isActive }) =>
                       isActive
-                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
                     Login
@@ -150,8 +153,8 @@ export default function Navbar() {
                     to={"register"}
                     className={({ isActive }) =>
                       isActive
-                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
                     Register

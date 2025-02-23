@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { CartContext } from "../../Context/CartContext";
 import Loader from "../../Components/Loader/Loader";
-import EmptyCart from "../../../public/assets/images/empty-cart.png";
+import EmptyCart from "../../../public/assets/images/empty-cart.webp";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Cart() {
@@ -58,7 +58,7 @@ export default function Cart() {
       </Helmet>
       {cartData ? (
         cartData.products && cartData.products.length > 0 ? (
-          <div className="font-sans max-w-5xl max-md:max-w-xl mx-auto bg-white py-4 mb-6">
+          <div className="max-w-5xl max-md:max-w-xl mx-auto bg-white py-4 mb-6">
             <h1 className="text-3xl font-bold text-gray-800 text-center">
               Shopping Cart
             </h1>
@@ -307,7 +307,7 @@ export default function Cart() {
             </h1>
             <Link
               to="/products"
-              className="text-sm text-center px-4 py-2.5 mt-4 font-semibold tracking-wide bg-blue-700 hover:bg-blue-800 hover:text-white text-white rounded-md"
+              className="text-sm text-center px-4 py-2.5 mt-4 font-semibold tracking-wide bg-[#6456ff] hover:bg-[#5647ff] hover:text-white text-white rounded-md"
             >
               Continue Shopping
             </Link>

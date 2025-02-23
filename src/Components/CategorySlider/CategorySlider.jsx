@@ -21,7 +21,7 @@ const settings = {
 function NextArrow(props) {
   return (
     <div
-      className="absolute top-[-30px] right-[-10px] transform -translate-y-1/2 bg-black text-white p-3 rounded-md cursor-pointer z-10"
+      className="absolute top-[-30px] right-[-10px] transform -translate-y-1/2 bg-[#6456FF] hover:bg-[#5647ff] text-white p-3 rounded-md cursor-pointer z-10"
       onClick={props.onClick}
     >
       <FaArrowRight />
@@ -32,7 +32,7 @@ function NextArrow(props) {
 function PrevArrow(props) {
   return (
     <div
-      className="absolute top-[-30px] right-[50px] transform -translate-y-1/2 bg-[#e5e5e5] text-black p-3 rounded-md cursor-pointer z-10"
+      className="absolute top-[-30px] right-[50px] transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-black p-3 rounded-md cursor-pointer z-10"
       onClick={props.onClick}
     >
       <FaArrowLeft />

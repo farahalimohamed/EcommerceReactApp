@@ -1,9 +1,9 @@
 import styles from "./Footer.module.css";
-import Logo from "./../../../public/assets/images/freshcart-logo-black.svg";
+import Logo from "./../../../public/assets/images/freshcart-logo.svg";
 import { NavLink } from "react-router-dom";
 export default function Footer() {
   return (
-    <footer className="bg-slate-100 dark:bg-gray-900 bottom-0 left-0 right-0">
+    <footer className="bg-gray-100 dark:bg-gray-900 bottom-0 left-0 right-0">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">

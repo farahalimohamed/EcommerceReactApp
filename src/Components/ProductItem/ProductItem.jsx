@@ -24,7 +24,8 @@ export default function ProductItem({ product, addProductToCart }) {
               <h6 className="text-sm sm:text-base font-bold text-gray-800">
                 {product.priceAfterDiscount
                   ? product.priceAfterDiscount
-                  : product.price} EGP
+                  : product.price}{" "}
+                EGP
               </h6>
               {product.priceAfterDiscount && (
                 <h6 className="text-sm sm:text-base text-gray-500">
@@ -34,7 +35,7 @@ export default function ProductItem({ product, addProductToCart }) {
             </div>
             <div className="flex items-center gap-0.5">
               <svg
-                className="w-[14px] h-[14px] fill-blue-600"
+                className="w-[14px] h-[14px] fill-[#6456ff]"
                 viewBox="0 0 14 13"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +65,7 @@ export default function ProductItem({ product, addProductToCart }) {
           </div>
           <button
             onClick={() => addProductToCart(product._id)}
-            className="text-sm px-2 min-h-[36px] w-full bg-blue-600 hover:bg-blue-700 text-white tracking-wide ml-auto outline-none border-none rounded"
+            className="text-sm px-2 min-h-[36px] w-full bg-[#6456ff] hover:bg-[#5647ff] text-white tracking-wide ml-auto outline-none border-none rounded"
           >
             Add to cart
           </button>
