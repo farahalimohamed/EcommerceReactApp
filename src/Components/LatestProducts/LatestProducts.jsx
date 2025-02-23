@@ -17,9 +17,15 @@ export default function LatestProducts() {
       );
       const allProducts = response.data.data;
 
-      const randomProducts = allProducts
-        .sort(() => 0.5 - Math.random()) 
-        .slice(0, 8); 
+      const highRatedProducts = allProducts.filter(
+        (product) => product.ratingsAverage > 4
+      );
+
+      const randomProducts = highRatedProducts
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 8);
+
+      setProducts(randomProducts);
 
       setProducts(randomProducts);
     } catch (err) {
@@ -57,7 +63,9 @@ export default function LatestProducts() {
               </div>
             ))
           ) : (
-            <Loader />
+            <div className="col-span-full flex justify-center items-center h-screen">
+              <Loader />
+            </div>
           )}
         </div>
       </div>
