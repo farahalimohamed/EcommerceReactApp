@@ -39,13 +39,13 @@ export default function ProductDetails() {
         <Helmet>
           <title>{details.title}</title>
         </Helmet>
-        <div className="mx-auto px-4 py-4">
+        <div className="mx-auto px-4 py-8">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full md:w-1/2 px-4 mb-8">
               <img
                 src={details.imageCover}
                 alt="Product"
-                className="w-full h-[60%] object-contain mb-4"
+                className="w-full h-[500px] object-contain mb-4"
                 id="mainImage"
               />
               <div className="flex gap-2 space-x-4 py-4 justify-center overflow-x-auto hide-scrollbar">
