@@ -6,14 +6,17 @@ import * as Yup from "yup";
 import { CartContext } from "../../Context/CartContext";
 
 export default function Checkout() {
-  const { cashOnDelivery, setNumOfCartItems, setCartId, onlinePayment } =
-    useContext(CartContext);
+  const {
+    cashOnDelivery,
+    setNumOfCartItems,
+    setCartId,
+    onlinePayment,
+    totalCartPrice,
+  } = useContext(CartContext);
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log(state);
-  console.log(state);
   const initialValues = {
     details: "",
     phone: "",
@@ -137,55 +140,38 @@ export default function Checkout() {
             </div>
           </div>
           <div className="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
-            <div className="flow-root">
-              <div className="-my-3 divide-y divide-gray-200 dark:divide-gray-800">
-                <dl className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    Subtotal
-                  </dt>
-                  <dd className="text-base font-medium text-gray-900 dark:text-white">
-                    $8,094.00
-                  </dd>
-                </dl>
-                <dl className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    Savings
-                  </dt>
-                  <dd className="text-base font-medium text-green-500">0</dd>
-                </dl>
-                <dl className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    Store Pickup
-                  </dt>
-                  <dd className="text-base font-medium text-gray-900 dark:text-white">
-                    $99
-                  </dd>
-                </dl>
-                <dl className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    Tax
-                  </dt>
-                  <dd className="text-base font-medium text-gray-900 dark:text-white">
-                    $199
-                  </dd>
-                </dl>
-                <dl className="flex items-center justify-between gap-4 py-3">
-                  <dt className="text-base font-bold text-gray-900 dark:text-white">
-                    Total
-                  </dt>
-                  <dd className="text-base font-bold text-gray-900 dark:text-white">
-                    $8,392.00
-                  </dd>
-                </dl>
-              </div>
-            </div>
-            <div className="space-y-3">
+            <div className="bg-gray-100 rounded-md p-4 h-max">
+              <ul className="text-gray-800 space-y-3">
+                <li className="flex flex-wrap gap-4 text-sm">
+                  Subtotal{" "}
+                  <span className="ml-auto font-bold">
+                    {totalCartPrice}{" "}
+                    EGP
+                  </span>
+                </li>
+                <li className="flex flex-wrap gap-4 text-sm">
+                  Shipping <span className="ml-auto font-bold">0.00</span>
+                </li>
+                <li className="flex flex-wrap gap-4 text-sm">
+                  Tax <span className="ml-auto font-bold">0.00</span>
+                </li>
+                <hr className="border-gray-300" />
+                <li className="flex flex-wrap gap-4 text-sm font-bold">
+                  Total{" "}
+                  <span className="ml-auto">
+                    {totalCartPrice }{" "}
+                    EGP
+                  </span>
+                </li>
+              </ul>
+            <div className="space-y-3 mt-5">
               <button
                 type="submit"
                 className="flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Proceed to Payment
               </button>
+            </div>
             </div>
           </div>
         </div>

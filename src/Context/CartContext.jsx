@@ -5,6 +5,7 @@ export const CartContext = createContext();
 
 export default function CartContextProvider({ children }) {
   const [numOfCartItems, setNumOfCartItems] = useState(0);
+  const [totalCartPrice, setTotalCartPrice] = useState(0);
   const [cartId, setCartId] = useState(null);
   const headers = {
     token: localStorage.getItem("token"),
@@ -113,6 +114,8 @@ export default function CartContextProvider({ children }) {
         setCartId,
         cashOnDelivery,
         onlinePayment,
+        totalCartPrice,
+        setTotalCartPrice,
       }}
     >
       {children}

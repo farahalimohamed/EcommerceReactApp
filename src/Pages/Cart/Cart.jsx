@@ -16,14 +16,16 @@ export default function Cart() {
     clearCart,
     setNumOfCartItems,
     setCartId,
+    setTotalCartPrice,
   } = useContext(CartContext);
   const [cartData, setCartData] = useState(null);
-  const [paymentMethod, setPaymentMethod] = useState("online"); // Default to "online"
+  const [paymentMethod, setPaymentMethod] = useState("online");
   const navigate = useNavigate();
 
   async function getData() {
     let data = await getLoggedCart();
     setCartData(data.data);
+    setTotalCartPrice(data.data.totalCartPrice); 
   }
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export default function Cart() {
   async function updateQuantity(id, count) {
     let data = await updateProductQuantity(id, count);
     setCartData(data.data);
+    setTotalCartPrice(data.data.totalCartPrice); 
   }
 
   async function clearAll() {
