@@ -18,6 +18,7 @@ import { Toaster } from "react-hot-toast";
 import Checkout from "./Pages/Checkout/Checkout";
 import AllOrders from "./Pages/AllOrders/AllOrders";
 import OrderContextProvider from "./Context/OrderContext";
+import Brands from "./Pages/Brands/Brands";
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -78,6 +79,14 @@ export default function App() {
           element: (
             <ProtectedRoutes>
               <Categories />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "brands",
+          element: (
+            <ProtectedRoutes>
+              <Brands />
             </ProtectedRoutes>
           ),
         },

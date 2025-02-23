@@ -39,9 +39,8 @@ export default function ProductDetails() {
         <Helmet>
           <title>{details.title}</title>
         </Helmet>
-        <div className="container mx-auto px-4 py-8">
+        <div className="mx-auto px-4 py-4">
           <div className="flex flex-wrap -mx-4">
-            {/* Product Images */}
             <div className="w-full md:w-1/2 px-4 mb-8">
               <img
                 src={details.imageCover}
@@ -70,7 +69,6 @@ export default function ProductDetails() {
                 ))}
               </div>
             </div>
-            {/* Product Details */}
             <div className="w-full md:w-1/2 px-4">
               <h2 className="text-3xl font-bold mb-2">{details.title}</h2>
               <p className="text-gray-600 mb-4">{details.category?.name}</p>
@@ -94,24 +92,21 @@ export default function ProductDetails() {
                 </span>
               </div>
               <p className="text-gray-700 mb-6">{details.description}</p>
-              <div className="mb-6">
-                <label
-                  htmlFor="quantity"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+              <div className="mb-6 flex items-center">
+                <p
+                  className="block text-base font-bold text-gray-700"
                 >
-                  Quantity:
-                </label>
-                <input
-                  type="number"
-                  id="quantity"
-                  name="quantity"
-                  min={1}
-                  defaultValue={1}
-                  className="w-12 text-center rounded-md border-gray-300  shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                />
+                  Brand:
+                </p>
+                <span className="ms-1">{details.brand?.name}</span>
               </div>
               <div className="flex space-x-4 mb-6">
-                <button onClick={()=>{addProductToCart(details._id)}} className="bg-blue-700 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <button
+                  onClick={() => {
+                    addProductToCart(details._id);
+                  }}
+                  className="bg-[#6456ff] hover:bg-[#5647ff] flex gap-2 items-center text-white px-6 py-2 rounded-md"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -128,19 +123,16 @@ export default function ProductDetails() {
                   </svg>
                   Add to Cart
                 </button>
-                <button className="bg-gray-200 flex gap-2 items-center  text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                <button className="bg-pink-100 hover:bg-pink-200 flex gap-2 items-center  text-gray-800 px-6 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-6"
+                    width="16px"
+                    className="fill-pink-600 inline-block"
+                    viewBox="0 0 64 64"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                      d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z"
+                      data-original="#000000"
                     />
                   </svg>
                   Wishlist

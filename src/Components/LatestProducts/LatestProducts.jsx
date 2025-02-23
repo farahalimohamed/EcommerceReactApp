@@ -43,23 +43,23 @@ export default function LatestProducts() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center">
       <h2 className="text-4xl font-bold mb-5 text-center">Best Seller</h2>
-      <div className="font-sans p-4 mx-auto lg:max-w-6xl md:max-w-3xl">
+      <div className="p-4 lg:max-w-6xl md:max-w-3xl">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <div key={product.id}>
-              <ProductItem
-                product={product}
-                addProductToCart={addProductToCart}
-              />
-            </div>
+          {products.length > 0 ? (
+            products.map((product) => (
+              <div key={product.id}>
+                <ProductItem
+                  product={product}
+                  addProductToCart={addProductToCart}
+                />
+              </div>
             ))
           ) : (
             <Loader />
           )}
-          </div>
+        </div>
       </div>
     </div>
   );

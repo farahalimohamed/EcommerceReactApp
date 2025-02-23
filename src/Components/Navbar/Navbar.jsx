@@ -61,7 +61,6 @@ export default function Navbar() {
                         ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
                         : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
-                    aria-current="page"
                   >
                     Home
                   </NavLink>
@@ -71,7 +70,7 @@ export default function Navbar() {
                     to={"products"}
                     className={({ isActive }) =>
                       isActive
-                        ? "block py-2 px-3 text-white bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
                         : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
@@ -83,11 +82,23 @@ export default function Navbar() {
                     to={"categories"}
                     className={({ isActive }) =>
                       isActive
-                        ? "block py-2 px-3 text-white bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
                         : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
                     Categories
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"brands"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#6456FF] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                  >
+                    Brands
                   </NavLink>
                 </li>
               </ul>
@@ -103,11 +114,11 @@ export default function Navbar() {
                     to={"cart"}
                     className={({ isActive }) =>
                       isActive
-                        ? "relative py-2 px-3 text-white bg-[#6456FF] rounded md:bg-transparent md:text-[#5647ff] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        ? "relative py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#5647ff] md:p-0 dark:text-white md:dark:text-[#6456FF]"
                         : "relative py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
-                    <BsCart3 className="text-xl font-semibold" />
+                    <BsCart3 className="text-xl" />
                     <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex justify-center items-center bg-red-500 text-white p-2">
                       {numOfCartItems}
                     </span>
