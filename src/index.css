@@ -5,7 +5,7 @@
 
 @layer components {
     :root {
-        --main-color: #0aad0a;
+        --main-color: #6456FF;
         --light-color: #f0f3f2;
         --shadow: rgba(145, 158, 171, .2) 0px 2px 4px -1px, rgba(145, 158, 171, .14) 0px 4px 5px 0px, rgba(145, 158, 171, .12) 0px 1px 10px 0px;
         --font-family: 'Encode Sans Expanded', sans-serif;
@@ -65,19 +65,15 @@
     }
 
     .btn {
-        @apply w-full text-white bg-blue-700 disabled:bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-700
+        @apply w-full text-white bg-[#6456FF] disabled:bg-[#978eff] hover:bg-[#5647ff] font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#6456FF] dark:hover:bg-[#5647ff]
     }
 }
 
-/* في ملف الـ CSS بتاعك */
 .hide-scrollbar {
     scrollbar-width: none;
-    /* Firefox */
     -ms-overflow-style: none;
-    /* IE and Edge */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
-    /* Chrome, Safari, and Opera */
 }
