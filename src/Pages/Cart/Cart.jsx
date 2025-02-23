@@ -6,7 +6,7 @@ import { useState } from "react";
 import { CartContext } from "../../Context/CartContext";
 import Loader from "../../Components/Loader/Loader";
 import EmptyCart from "../../../public/assets/images/empty-cart.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const {
@@ -14,13 +14,18 @@ export default function Cart() {
     removeProductFromCart,
     updateProductQuantity,
     clearCart,
+    setNumOfCartItems,
+    setCartId,
+    setTotalCartPrice,
   } = useContext(CartContext);
   const [cartData, setCartData] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("online");
+  const navigate = useNavigate();
 
   async function getData() {
     let data = await getLoggedCart();
-    console.log(data);
     setCartData(data.data);
+    setTotalCartPrice(data.data.totalCartPrice); 
   }
 
   useEffect(() => {
@@ -28,18 +33,22 @@ export default function Cart() {
   }, []);
 
   async function removeProduct(id) {
-    let data = await removeProductFromCart(id);
-    setCartData(data.data);
+    let response = await removeProductFromCart(id);
+    setCartData(response.data);
+    setNumOfCartItems(response.numOfCartItems);
+    setCartId(response.cartId);
   }
 
   async function updateQuantity(id, count) {
     let data = await updateProductQuantity(id, count);
     setCartData(data.data);
+    setTotalCartPrice(data.data.totalCartPrice); 
   }
 
   async function clearAll() {
     let data = await clearCart();
     setCartData({ ...data.data, products: [] });
+    setNumOfCartItems(0);
   }
 
   return (
@@ -49,7 +58,7 @@ export default function Cart() {
       </Helmet>
       {cartData ? (
         cartData.products && cartData.products.length > 0 ? (
-          <div className="font-sans max-w-5xl max-md:max-w-xl mx-auto bg-white py-4">
+          <div className="font-sans max-w-5xl max-md:max-w-xl mx-auto bg-white py-4 mb-6">
             <h1 className="text-3xl font-bold text-gray-800 text-center">
               Shopping Cart
             </h1>
@@ -171,6 +180,73 @@ export default function Cart() {
                     Clear Cart
                   </button>
                 </div>
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Payment
+                  </h3>
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="online-payment"
+                            aria-describedby="online-payment-text"
+                            type="radio"
+                            name="payment"
+                            value="online"
+                            checked={paymentMethod === "online"}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                            className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                          />
+                        </div>
+                        <div className="ms-4 text-sm">
+                          <label
+                            htmlFor="online-payment"
+                            className="font-medium leading-none text-gray-900 dark:text-white"
+                          >
+                            Online Payment
+                          </label>
+                          <p
+                            id="online-payment-text"
+                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                          >
+                            Pay with your credit card
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="cash"
+                            aria-describedby="cash-text"
+                            type="radio"
+                            name="payment"
+                            value="cash"
+                            checked={paymentMethod === "cash"}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                            className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                          />
+                        </div>
+                        <div className="ms-4 text-sm">
+                          <label
+                            htmlFor="cash"
+                            className="font-medium leading-none text-gray-900 dark:text-white"
+                          >
+                            Payment on delivery
+                          </label>
+                          <p
+                            id="cash-text"
+                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                          >
+                            Pay when you receive your order
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="bg-gray-100 rounded-md p-4 h-max">
                 <h3 className="text-lg max-sm:text-base font-bold text-gray-800 border-b border-gray-300 pb-2">
@@ -203,13 +279,16 @@ export default function Cart() {
                     </span>
                   </li>
                 </ul>
+
                 <div className="mt-6 flex flex-col space-y-3">
-                  <Link
-                    to="/checkout"
+                  <button
+                    onClick={() => {
+                      navigate("/checkout", { state: paymentMethod });
+                    }}
                     className="text-sm text-center px-4 py-2.5 w-full font-semibold tracking-wide bg-blue-700 hover:bg-blue-800 hover:text-white text-white rounded-md"
                   >
                     Checkout
-                  </Link>
+                  </button>
                   <Link
                     to="/products"
                     className="text-sm text-center px-4 py-2.5 w-full font-semibold tracking-wide bg-transparent text-gray-800 border border-gray-300 rounded-md"
@@ -222,17 +301,17 @@ export default function Cart() {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-96 my-10">
-          <img src={EmptyCart} className="h-80" />
-          <h1 className="text-2xl font-bold text-gray-800 mt-2">
-            Your cart is empty
-          </h1>
-          <Link
-            to="/products"
-            className="text-sm text-center px-4 py-2.5 mt-4 font-semibold tracking-wide bg-blue-700 hover:bg-blue-800 hover:text-white text-white rounded-md"
-          >
-            Continue Shopping
-          </Link>
-        </div>
+            <img src={EmptyCart} className="h-80" />
+            <h1 className="text-2xl font-bold text-gray-800 mt-2">
+              Your cart is empty
+            </h1>
+            <Link
+              to="/products"
+              className="text-sm text-center px-4 py-2.5 mt-4 font-semibold tracking-wide bg-blue-700 hover:bg-blue-800 hover:text-white text-white rounded-md"
+            >
+              Continue Shopping
+            </Link>
+          </div>
         )
       ) : (
         <Loader />

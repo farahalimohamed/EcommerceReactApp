@@ -15,6 +15,9 @@ import { Offline } from "react-detect-offline";
 import { RiWifiOffLine } from "react-icons/ri";
 import CartContextProvider from "./Context/CartContext";
 import { Toaster } from "react-hot-toast";
+import Checkout from "./Pages/Checkout/Checkout";
+import AllOrders from "./Pages/AllOrders/AllOrders";
+import OrderContextProvider from "./Context/OrderContext";
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -34,7 +37,7 @@ export default function App() {
           path: "products",
           element: (
             <ProtectedRoutes>
-              <Products />,
+              <Products />
             </ProtectedRoutes>
           ),
         },
@@ -42,7 +45,7 @@ export default function App() {
           path: "productdetails/:productId",
           element: (
             <ProtectedRoutes>
-              <ProductDetails />,
+              <ProductDetails />
             </ProtectedRoutes>
           ),
         },
@@ -50,7 +53,23 @@ export default function App() {
           path: "cart",
           element: (
             <ProtectedRoutes>
-              <Cart />,
+              <Cart />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "checkout",
+          element: (
+            <ProtectedRoutes>
+              <Checkout />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "allorders",
+          element: (
+            <ProtectedRoutes>
+              <AllOrders />
             </ProtectedRoutes>
           ),
         },
@@ -58,7 +77,7 @@ export default function App() {
           path: "categories",
           element: (
             <ProtectedRoutes>
-              <Categories />,
+              <Categories />
             </ProtectedRoutes>
           ),
         },
@@ -81,16 +100,18 @@ export default function App() {
   ]);
   return (
     <TokenContextProvider>
-      <CartContextProvider>
-        <Offline>
-          <div className="offline fixed bottom-2 right-4 bg-blue-500 text-white p-3 rounded-md z-50">
-            <RiWifiOffLine className="inline" />
-            <span className="ml-2">You are offline!</span>
-          </div>
-        </Offline>
-        <Toaster position="bottom-right" />
-        <RouterProvider router={routes}></RouterProvider>
-      </CartContextProvider>
+      <OrderContextProvider>
+        <CartContextProvider>
+          <Offline>
+            <div className="offline fixed bottom-2 right-4 bg-blue-500 text-white p-3 rounded-md z-50">
+              <RiWifiOffLine className="inline" />
+              <span className="ml-2">You are offline!</span>
+            </div>
+          </Offline>
+          <Toaster position="bottom-right" />
+          <RouterProvider router={routes}></RouterProvider>
+        </CartContextProvider>
+      </OrderContextProvider>
     </TokenContextProvider>
   );
 }

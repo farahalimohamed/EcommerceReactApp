@@ -1,65 +1,106 @@
 import axios from "axios";
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
 
-const headers = {
-  token: localStorage.getItem("token"),
-};
-function addToCart(id) {
-  return axios
-    .post(
-      "https://ecommerce.routemisr.com/api/v1/cart",
-      {
-        productId: id,
-      },
-      {
-        headers,
-      }
-    )
-    .then((res) => res.data)
-    .catch((err) => err);
-}
-
-function getLoggedCart() {
-  return axios
-    .get("https://ecommerce.routemisr.com/api/v1/cart", {
-      headers,
-    })
-    .then((res) => res.data)
-    .catch((err) => err);
-}
-
-function removeProductFromCart(productId) {
-  return axios
-    .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
-      headers,
-    })
-    .then((res) => res.data)
-    .catch((err) => err);
-}
-
-function clearCart() {
-  return axios
-    .delete(`https://ecommerce.routemisr.com/api/v1/cart`, {
-      headers,
-    })
-    .then((res) => res.data)
-    .catch((err) => err);
-}
-
-function updateProductQuantity(productId, count) {
-  return axios
-    .put(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`,{
-      count: count,
-    }, {
-      headers,
-    })
-    .then((res) => res.data)
-    .catch((err) => err);
-}
-
 export default function CartContextProvider({ children }) {
+  const [numOfCartItems, setNumOfCartItems] = useState(0);
+  const [totalCartPrice, setTotalCartPrice] = useState(0);
+  const [cartId, setCartId] = useState(null);
+  const headers = {
+    token: localStorage.getItem("token"),
+  };
+  function addToCart(id) {
+    return axios
+      .post(
+        "https://ecommerce.routemisr.com/api/v1/cart",
+        {
+          productId: id,
+        },
+        {
+          headers,
+        }
+      )
+      .then((res) => res.data)
+      .catch((err) => err);
+  }
+
+  function getLoggedCart() {
+    return axios
+      .get("https://ecommerce.routemisr.com/api/v1/cart", {
+        headers,
+      })
+      .then((res) => res.data)
+      .catch((err) => err);
+  }
+
+  function removeProductFromCart(productId) {
+    return axios
+      .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
+        headers,
+      })
+      .then((res) => res.data)
+      .catch((err) => err);
+  }
+
+  function clearCart() {
+    return axios
+      .delete(`https://ecommerce.routemisr.com/api/v1/cart`, {
+        headers,
+      })
+      .then((res) => res.data)
+      .catch((err) => err);
+  }
+
+  function updateProductQuantity(productId, count) {
+    return axios
+      .put(
+        `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
+        {
+          count: count,
+        },
+        {
+          headers,
+        }
+      )
+      .then((res) => res.data)
+      .catch((err) => err);
+  }
+
+  function cashOnDelivery(data) {
+    return axios
+      .post(`https://ecommerce.routemisr.com/api/v1/orders/${cartId}`, data, {
+        headers,
+      })
+      .then((res) => res.data)
+      .catch((err) => err);
+  }
+
+  function onlinePayment(data) {
+    return axios
+      .post(
+        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}`,
+        data,
+        {
+          params: {
+            url: "http://localhost:5173",
+          },
+          headers,
+        },
+      )
+      .then((res) => res.data)
+      .catch((err) => err);
+  }
+
+  async function getData() {
+    let res = await getLoggedCart();
+    setNumOfCartItems(res.numOfCartItems);
+    setCartId(res.cartId);
+  }
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <CartContext.Provider
       value={{
@@ -67,7 +108,14 @@ export default function CartContextProvider({ children }) {
         getLoggedCart,
         removeProductFromCart,
         updateProductQuantity,
-        clearCart
+        clearCart,
+        numOfCartItems,
+        setNumOfCartItems,
+        setCartId,
+        cashOnDelivery,
+        onlinePayment,
+        totalCartPrice,
+        setTotalCartPrice,
       }}
     >
       {children}

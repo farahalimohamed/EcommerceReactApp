@@ -12,10 +12,12 @@ import Logo from "./../../../public/assets/images/freshcart-logo-black.svg";
 import { useContext } from "react";
 import { tokenContext } from "../../Context/TokenContext";
 import { AiOutlineShopping } from "react-icons/ai";
+import { CartContext } from "../../Context/CartContext";
 export default function Navbar() {
   const { token, setToken } = useContext(tokenContext);
+  const { numOfCartItems } = useContext(CartContext);
   const navigate = useNavigate();
-  function logoutUser(){
+  function logoutUser() {
     setToken(null);
     navigate("/login");
   }
@@ -102,55 +104,6 @@ export default function Navbar() {
         </div>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                aria-current="page"
-              >
-                <FaFacebook />
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                <FaInstagram />
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                <FaYoutube />
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                <FaLinkedin />
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                <FaTiktok />
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                <FaTwitter />
-              </a>
-            </li>
             {token && (
               <>
                 <li>
@@ -158,11 +111,14 @@ export default function Navbar() {
                     to={"cart"}
                     className={({ isActive }) =>
                       isActive
-                        ? "block py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
-                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        ? "relative py-2 px-3 text-white bg-green-600 rounded md:bg-transparent md:text-[#0AAD0A] md:p-0 dark:text-white md:dark:text-[#0AAD0A]"
+                        : "relative py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#0AAD0A] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
-                    <AiOutlineShopping />
+                    <AiOutlineShopping className="text-xl font-semibold" />
+                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex justify-center items-center bg-red-500 text-white p-2">
+                      {numOfCartItems}
+                    </span>
                   </NavLink>
                 </li>
                 <li>

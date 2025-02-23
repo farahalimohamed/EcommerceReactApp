@@ -11,7 +11,7 @@ export default function ProductDetails() {
   const [details, setDetails] = useState({});
   const [activeImage, setActiveImage] = useState(0);
   const { productId } = useParams();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, setNumOfCartItems, setCartId } = useContext(CartContext);
   async function getProductDetails() {
     await axios
       .get(`https://ecommerce.routemisr.com/api/v1/products/${productId}`)
@@ -21,8 +21,9 @@ export default function ProductDetails() {
 
   async function addProductToCart(id) {
     let response = await addToCart(id);
-    console.log(response);
     if (response.status === "success") {
+      setNumOfCartItems(response.numOfCartItems);
+      setCartId(response.cartId);
       toast.success(response.message);
     } else {
       toast.error('Error adding product to cart');
