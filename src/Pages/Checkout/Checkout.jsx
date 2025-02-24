@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { CartContext } from "../../Context/CartContext";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function Checkout() {
   const {
@@ -31,20 +32,29 @@ export default function Checkout() {
   });
 
   async function handleSubmit(data) {
-    if (state == "online") {
-      let response = await onlinePayment({ shippingAddress: data });
-      if (response.status === "success") {
-        setNumOfCartItems(0);
-        setCartId(null);
-        window.location.href = response.session.url;
+    setIsLoading(true);
+    setErrorMsg(null);
+
+    try {
+      if (state === "online") {
+        let response = await onlinePayment({ shippingAddress: data });
+        if (response.status === "success") {
+          setNumOfCartItems(0);
+          setCartId(null);
+          window.location.href = response.session.url;
+        }
+      } else {
+        let res = await cashOnDelivery({ shippingAddress: data });
+        if (res.status === "success") {
+          setNumOfCartItems(0);
+          setCartId(null);
+          navigate("/allorders");
+        }
       }
-    } else {
-      let res = await cashOnDelivery({ shippingAddress: data });
-      if (res.status === "success") {
-        setNumOfCartItems(0);
-        setCartId(null);
-        navigate("/allorders");
-      }
+    } catch (error) {
+      setErrorMsg("An error occurred during the payment process. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -53,6 +63,7 @@ export default function Checkout() {
     validationSchema,
     onSubmit: handleSubmit,
   });
+
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
       <Helmet>
@@ -145,8 +156,7 @@ export default function Checkout() {
                 <li className="flex flex-wrap gap-4 text-sm">
                   Subtotal{" "}
                   <span className="ml-auto font-bold">
-                    {totalCartPrice}{" "}
-                    EGP
+                    {totalCartPrice} EGP
                   </span>
                 </li>
                 <li className="flex flex-wrap gap-4 text-sm">
@@ -157,21 +167,31 @@ export default function Checkout() {
                 </li>
                 <hr className="border-gray-300" />
                 <li className="flex flex-wrap gap-4 text-sm font-bold">
-                  Total{" "}
-                  <span className="ml-auto">
-                    {totalCartPrice }{" "}
-                    EGP
-                  </span>
+                  Total <span className="ml-auto">{totalCartPrice} EGP</span>
                 </li>
               </ul>
-            <div className="space-y-3 mt-5">
-              <button
-                type="submit"
-                className="flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Proceed to Payment
-              </button>
-            </div>
+              <div className="space-y-3 mt-5">
+                {errorMsg && (
+                  <div className="bg-red-300 p-3 rounded-md">{errorMsg}</div>
+                )}
+                {isLoading ? (
+                  <button
+                    type="submit"
+                    disabled
+                    className="flex w-full items-center justify-center rounded-lg bg-[#6456ff] hover:bg-[#5647ff] px-5 py-2.5 text-sm font-medium text-white dark:bg-[#6456ff] dark:hover:bg-[#5647ff]"
+                  >
+                    <AiOutlineLoading3Quarters className="animate-spin" />
+                  </button>
+                ) : (
+                  <button
+                    disabled={!formik.isValid || !formik.dirty}
+                    type="submit"
+                    className="btn"
+                  >
+                    Proceed to Payment
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
