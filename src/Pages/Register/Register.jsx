@@ -5,10 +5,14 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import registerImg from "./../../../public/assets/images/online-shopping.webp"; 
+import { Helmet } from "react-helmet";
+
 export default function Register() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
   const initialValues = {
     name: "",
     email: "",
@@ -16,6 +20,7 @@ export default function Register() {
     rePassword: "",
     phone: "",
   };
+
   const validationSchema = Yup.object({
     name: Yup.string()
       .required("Name is required")
@@ -34,6 +39,7 @@ export default function Register() {
       .required("Confirm password is required")
       .oneOf([Yup.ref("password"), null], "Passwords must match"),
   });
+
   async function handleRegister(data) {
     setIsLoading(true);
     const response = await axios
@@ -54,160 +60,175 @@ export default function Register() {
     validationSchema,
     onSubmit: handleRegister,
   });
+
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 pb-10 pt-5">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="flex items-center mb-6 text-3xl font-semibold text-gray-900 dark:text-white">
-          Register Now
+    <section className="flex items-center justify-center min-h-screen bg-[#978eff46]">
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
+      <div className="flex items-center max-w-5xl w-full my-8 bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="hidden md:block md:w-1/2">
+          <img src={registerImg} alt="register" className="mx-auto" />
         </div>
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Create an account
+        <div className="w-full md:w-1/2 p-2">
+          <div className="text-center pt-8">
+            <h1 className="text-2xl font-semibold text-gray-800 pb-4">
+              Create an Account
             </h1>
-            <form
-              className="space-y-4 md:space-y-6"
-              onSubmit={formik.handleSubmit}
-            >
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Enter your name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.name && formik.touched.name && (
-                  <small className="text-red-600">{formik.errors.name}</small>
+            <p className="text-gray-500">Please register here</p>
+          </div>
+          <div className="w-full bg-white rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <form
+                className="space-y-4 md:space-y-6"
+                onSubmit={formik.handleSubmit}
+              >
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Enter your name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.name && formik.touched.name && (
+                    <small className="text-red-600">{formik.errors.name}</small>
+                  )}
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="name@company.com"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.email && formik.touched.email && (
+                    <small className="text-red-600">
+                      {formik.errors.email}
+                    </small>
+                  )}
+                </div>
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="e.g. +20 125 678 9104"
+                    value={formik.values.phone}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.phone && formik.touched.phone && (
+                    <small className="text-red-600">
+                      {formik.errors.phone}
+                    </small>
+                  )}
+                </div>
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="••••••••"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.password && formik.touched.password && (
+                    <small className="text-red-600">
+                      {formik.errors.password}
+                    </small>
+                  )}
+                </div>
+                <div>
+                  <label
+                    htmlFor="rePassword"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    name="rePassword"
+                    id="rePassword"
+                    placeholder="••••••••"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={formik.values.rePassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.rePassword && formik.touched.rePassword && (
+                    <small className="text-red-600">
+                      {formik.errors.rePassword}
+                    </small>
+                  )}
+                </div>
+                {errorMsg && (
+                  <div className="bg-red-300 p-3 rounded-md">{errorMsg}</div>
                 )}
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.email && formik.touched.email && (
-                  <small className="text-red-600">{formik.errors.email}</small>
+                {isLoading ? (
+                  <button
+                    type="submit"
+                    disabled
+                    className="w-full text-white flex justify-center items-center bg-[#6456FF] disabled:bg-[#978eff] hover:bg-[#5647ff] font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#6456FF] dark:disabled:bg-[#978eff] dark:hover:bg-[#5647ff]"
+                  >
+                    <AiOutlineLoading3Quarters className="animate-spin" />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="btn"
+                    disabled={!formik.isValid || !formik.dirty}
+                  >
+                    Register
+                  </button>
                 )}
-              </div>
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your phone
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  id="phone"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="e.g. +20 125 678 9104"
-                  value={formik.values.phone}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.phone && formik.touched.phone && (
-                  <small className="text-red-600">{formik.errors.phone}</small>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.password && formik.touched.password && (
-                  <small className="text-red-600">
-                    {formik.errors.password}
-                  </small>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="rePassword"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Confirm password
-                </label>
-                <input
-                  type="password"
-                  name="rePassword"
-                  id="rePassword"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={formik.values.rePassword}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.rePassword && formik.touched.rePassword && (
-                  <small className="text-red-600">
-                    {formik.errors.rePassword}
-                  </small>
-                )}
-              </div>
-              {errorMsg && (
-                <div className="bg-red-300 p-3 rounded-md">{errorMsg}</div>
-              )}
-              {isLoading ? (
-                <button
-                  type="submit"
-                  disabled
-                  className="w-full text-white text-center flex justify-center items-center bg-[#0AAD0A] disabled:bg-[#87d387] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                >
-                  <AiOutlineLoading3Quarters className="animate-spin" />
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="btn"
-                  disabled={!formik.isValid && formik.dirty}
-                >
-                  Create an account
-                </button>
-              )}
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Already have an account?{" "}
-                <Link
-                  to={"/login"}
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Login here
-                </Link>
-              </p>
-            </form>
+                <div className="flex justify-between items-center">
+                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                    Already have an account?{" "}
+                    <Link
+                      to={"/login"}
+                      className="font-medium text-[#6456ff] hover:underline dark:text-[#6456ff]"
+                    >
+                      Login here
+                    </Link>
+                  </p>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

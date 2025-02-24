@@ -21,6 +21,9 @@ import OrderContextProvider from "./Context/OrderContext";
 import Brands from "./Pages/Brands/Brands";
 import Wishlist from "./Pages/Wishlist/Wishlist";
 import WishlistContextProvider from "./Context/WishlistContext";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
+import VerifyResetCode from "./Pages/VerifyResetCode/VerifyResetCode";
+import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -113,6 +116,18 @@ export default function App() {
         {
           path: "register",
           element: <Register />,
+        },
+        {
+          path: "forgot-password",
+          element: <ForgotPassword />,
+        },
+        {
+          path: "verify-reset-code",
+          element: <VerifyResetCode />,
+        },
+        {
+          path: "reset-password",
+          element: <ResetPassword />,
         },
       ],
     },
