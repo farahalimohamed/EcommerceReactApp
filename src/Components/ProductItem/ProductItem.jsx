@@ -1,7 +1,7 @@
 import { FaStar } from "react-icons/fa";
 import styles from "./ProductItem.module.css";
 import { Link } from "react-router-dom";
-export default function ProductItem({ product, addProductToCart }) {
+export default function ProductItem({ product, addProductToCart, addProductToWishlist }) {
   return (
     <div className="bg-white flex flex-col overflow-hidden cursor-pointer hover:shadow-md transition-all">
       <Link to={`/productdetails/${product._id}`}>
@@ -47,7 +47,8 @@ export default function ProductItem({ product, addProductToCart }) {
           </div>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <div
+          <button
+            onClick={() => addProductToWishlist(product._id)}
             className="bg-pink-100 hover:bg-pink-200 w-12 h-9 flex items-center justify-center rounded cursor-pointer"
             title="Wishlist"
           >
@@ -62,7 +63,7 @@ export default function ProductItem({ product, addProductToCart }) {
                 data-original="#000000"
               />
             </svg>
-          </div>
+          </button>
           <button
             onClick={() => addProductToCart(product._id)}
             className="text-sm px-2 min-h-[36px] w-full bg-[#6456ff] hover:bg-[#5647ff] text-white tracking-wide ml-auto outline-none border-none rounded"

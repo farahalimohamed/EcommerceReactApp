@@ -6,9 +6,11 @@ import Loader from '../../Components/Loader/Loader';
 import ProductItem from '../../Components/ProductItem/ProductItem';
 import { Helmet } from 'react-helmet';
 import toast from "react-hot-toast";
+import { WishlistContext } from '../../Context/WishlistContext';
 export default function Products() {
   const [products, setProducts] = useState([]);
   const { addToCart, setNumOfCartItems, setCartId } = useContext(CartContext);
+  const { addToWishlist, setNumOfWishListItems } = useContext(WishlistContext);
 
   async function getProducts() {
     try {
@@ -35,6 +37,15 @@ export default function Products() {
       toast.error("Error adding product to cart");
     }
   }
+  async function addProductToWishlist(id) {
+    let response = await addToWishlist(id);
+    if (response.status === "success") {
+      toast.success(response.message);
+      setNumOfWishListItems(response.data.length);
+    } else {
+      toast.error("Error adding product to wishlist");
+    }
+  }
   return (
     <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center">
       <Helmet>
@@ -48,6 +59,7 @@ export default function Products() {
                 <ProductItem
                   product={product}
                   addProductToCart={addProductToCart}
+                  addProductToWishlist={addProductToWishlist}
                 />
               </div>
             ))

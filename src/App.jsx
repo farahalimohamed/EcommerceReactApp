@@ -19,6 +19,8 @@ import Checkout from "./Pages/Checkout/Checkout";
 import AllOrders from "./Pages/AllOrders/AllOrders";
 import OrderContextProvider from "./Context/OrderContext";
 import Brands from "./Pages/Brands/Brands";
+import Wishlist from "./Pages/Wishlist/Wishlist";
+import WishlistContextProvider from "./Context/WishlistContext";
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -90,6 +92,14 @@ export default function App() {
             </ProtectedRoutes>
           ),
         },
+        {
+          path: "wishlist",
+          element: (
+            <ProtectedRoutes>
+              <Wishlist />
+            </ProtectedRoutes>
+          ),
+        },
       ],
     },
     {
@@ -110,16 +120,18 @@ export default function App() {
   return (
     <TokenContextProvider>
       <OrderContextProvider>
-        <CartContextProvider>
-          <Offline>
-            <div className="offline fixed bottom-2 right-4 bg-blue-500 text-white p-3 rounded-md z-50">
-              <RiWifiOffLine className="inline" />
-              <span className="ml-2">You are offline!</span>
-            </div>
-          </Offline>
-          <Toaster position="bottom-right" />
-          <RouterProvider router={routes}></RouterProvider>
-        </CartContextProvider>
+        <WishlistContextProvider>
+          <CartContextProvider>
+            <Offline>
+              <div className="offline fixed bottom-2 right-4 bg-[#6456ff] text-white p-3 rounded-md z-50">
+                <RiWifiOffLine className="inline" />
+                <span className="ml-2">You are offline!</span>
+              </div>
+            </Offline>
+            <Toaster position="bottom-right" />
+            <RouterProvider router={routes}></RouterProvider>
+          </CartContextProvider>
+        </WishlistContextProvider>
       </OrderContextProvider>
     </TokenContextProvider>
   );

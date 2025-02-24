@@ -7,6 +7,7 @@ import { CartContext } from "../../Context/CartContext";
 import Loader from "../../Components/Loader/Loader";
 import EmptyCart from "../../../public/assets/images/empty-cart.webp";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Cart() {
   const {
@@ -34,9 +35,15 @@ export default function Cart() {
 
   async function removeProduct(id) {
     let response = await removeProductFromCart(id);
-    setCartData(response.data);
-    setNumOfCartItems(response.numOfCartItems);
-    setCartId(response.cartId);
+    console.log(response);
+    if (response.status === "success") {
+      toast.success("Product removed successfully from cart");
+      setCartData(response.data);
+      setNumOfCartItems(response.numOfCartItems);
+      setCartId(response.cartId);
+    } else {
+      toast.error("Error removing product from cart");
+    }
   }
 
   async function updateQuantity(id, count) {
