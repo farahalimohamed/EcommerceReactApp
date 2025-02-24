@@ -292,7 +292,7 @@ export default function Cart() {
                     onClick={() => {
                       navigate("/checkout", { state: paymentMethod });
                     }}
-                    className="text-sm text-center px-4 py-2.5 w-full font-semibold tracking-wide bg-blue-700 hover:bg-blue-800 hover:text-white text-white rounded-md"
+                    className="text-sm text-center px-4 py-2.5 w-full font-semibold tracking-wide bg-[#6456ff] hover:bg-[#5647ff] hover:text-white text-white rounded-md"
                   >
                     Checkout
                   </button>

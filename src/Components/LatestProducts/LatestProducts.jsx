@@ -45,7 +45,6 @@ export default function LatestProducts() {
       setNumOfCartItems(response.numOfCartItems);
       setCartId(response.cartId);
       toast.success(response.message);
-      setNumOfWishListItems(response.count);
     } else {
       toast.error("Error adding product to cart");
     }
