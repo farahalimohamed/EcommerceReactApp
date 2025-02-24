@@ -1,67 +1,68 @@
-import { Link, useNavigate } from "react-router-dom";
-import styles from "./Login.module.css";
+import { useNavigate } from "react-router-dom";
+import styles from "./ResetPassword.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { tokenContext } from "../../Context/TokenContext";
-import loginImg from "./../../../public/assets/images/online-shopping.webp";
+import passImg from "./../../../public/assets/images/forgot.webp";
 import { Helmet } from "react-helmet";
-export default function Login() {
+
+export default function ResetPassword() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { setToken } = useContext(tokenContext);
+
   const initialValues = {
     email: "",
-    password: "",
+    newPassword: "",
   };
+
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
-    password: Yup.string()
-      .required("Password is required")
-      .matches(/^[A-Za-z1-9]{6,10}$/, "Password must be 6-10 characters"),
+    newPassword: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
   });
-  async function handleLogin(data) {
+
+  async function handleResetPassword(data) {
     setIsLoading(true);
-    const response = await axios
-      .post("https://ecommerce.routemisr.com/api/v1/auth/signin", data)
-      .then((res) => {
-        setToken(res.data.token);
-        localStorage.setItem("token", res.data.token);
-        setErrorMsg(null);
-        setIsLoading(false);
-        navigate("/");
-      })
-      .catch((err) => {
-        setErrorMsg(err.response.data.message);
-        setIsLoading(false);
-      });
+    try {
+      const response = await axios.put(
+        "https://ecommerce.routemisr.com/api/v1/auth/resetPassword",
+        data
+      );
+      setErrorMsg(null);
+      setIsLoading(false);
+      navigate("/login");
+    } catch (err) {
+      setErrorMsg(err.response.data.message);
+      setIsLoading(false);
+    }
   }
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: handleLogin,
+    onSubmit: handleResetPassword,
   });
+
   return (
     <section className="flex items-center justify-center min-h-screen bg-[#978eff46]">
       <Helmet>
-        <title>Login</title>
+        <title>Reset Password</title>
       </Helmet>
       <div className="flex max-w-5xl w-full bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="hidden md:block md:w-1/2">
-          <img src={loginImg} alt="login" className="mx-auto" />
+          <img src={passImg} alt="reset-password" className="mx-auto" />
         </div>
         <div className="w-full md:w-1/2 p-8">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-semibold text-gray-800 pb-4">
-              Welcome Back
+              Reset Your Password
             </h1>
-            <p className="text-gray-500">Please login here</p>
           </div>
           <div className="w-full bg-white rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -94,24 +95,24 @@ export default function Login() {
                 </div>
                 <div>
                   <label
-                    htmlFor="password"
+                    htmlFor="newPassword"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Password
+                    New Password
                   </label>
                   <input
                     type="password"
-                    name="password"
-                    id="password"
-                    placeholder="••••••••"
+                    name="newPassword"
+                    id="newPassword"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value={formik.values.password}
+                    placeholder="Enter new password"
+                    value={formik.values.newPassword}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.errors.password && formik.touched.password && (
+                  {formik.errors.newPassword && formik.touched.newPassword && (
                     <small className="text-red-600">
-                      {formik.errors.password}
+                      {formik.errors.newPassword}
                     </small>
                   )}
                 </div>
@@ -129,29 +130,12 @@ export default function Login() {
                 ) : (
                   <button
                     type="submit"
-                    className="btn"
+                    className="w-full text-white bg-[#6456FF] hover:bg-[#5647ff] font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#6456FF] dark:hover:bg-[#5647ff]"
                     disabled={!formik.isValid || !formik.dirty}
                   >
-                    Login
+                    Reset Password
                   </button>
                 )}
-                <div className="flex justify-between items-center">
-                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                    Don't have account?{" "}
-                    <Link
-                      to={"/register"}
-                      className="font-medium text-[#6456ff] hover:underline dark:text-[#6456ff]"
-                    >
-                      Register here
-                    </Link>
-                  </p>
-                  <Link
-                    to={"/forgot-password"}
-                    className="text-sm font-medium text-[#6456ff] hover:underline dark:text-[#6456ff]"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div>
               </form>
             </div>
           </div>
