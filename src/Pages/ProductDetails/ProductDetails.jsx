@@ -7,11 +7,13 @@ import { Helmet } from "react-helmet";
 import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext";
 import toast from "react-hot-toast";
+import { WishlistContext } from "../../Context/WishlistContext";
 export default function ProductDetails() {
   const [details, setDetails] = useState({});
   const [activeImage, setActiveImage] = useState(0);
   const { productId } = useParams();
   const { addToCart, setNumOfCartItems, setCartId } = useContext(CartContext);
+  const { addToWishlist, setNumOfWishListItems } = useContext(WishlistContext);
   async function getProductDetails() {
     await axios
       .get(`https://ecommerce.routemisr.com/api/v1/products/${productId}`)
@@ -27,6 +29,15 @@ export default function ProductDetails() {
       toast.success(response.message);
     } else {
       toast.error('Error adding product to cart');
+    }
+  }
+  async function addProductToWishlist(id) {
+    let response = await addToWishlist(id);
+    if (response.status === "success") {
+      toast.success(response.message);
+      setNumOfWishListItems(response.data.length);
+    } else {
+      toast.error("Error adding product to wishlist");
     }
   }
   useEffect(() => {
@@ -93,9 +104,7 @@ export default function ProductDetails() {
               </div>
               <p className="text-gray-700 mb-6">{details.description}</p>
               <div className="mb-6 flex items-center">
-                <p
-                  className="block text-base font-bold text-gray-700"
-                >
+                <p className="block text-base font-bold text-gray-700">
                   Brand:
                 </p>
                 <span className="ms-1">{details.brand?.name}</span>
@@ -123,7 +132,10 @@ export default function ProductDetails() {
                   </svg>
                   Add to Cart
                 </button>
-                <button className="bg-pink-100 hover:bg-pink-200 flex gap-2 items-center  text-gray-800 px-6 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                <button
+                  onClick={() => addProductToWishlist(details._id)}
+                  className="bg-pink-100 hover:bg-pink-200 flex gap-2 items-center  text-gray-800 px-6 py-2 rounded-md"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16px"

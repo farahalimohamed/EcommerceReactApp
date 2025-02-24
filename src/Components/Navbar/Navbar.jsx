@@ -5,16 +5,20 @@ import { useContext } from "react";
 import { tokenContext } from "../../Context/TokenContext";
 import { CartContext } from "../../Context/CartContext";
 import { BsCart3 } from "react-icons/bs";
+import { IoIosHeartEmpty } from "react-icons/io";
+import { WishlistContext } from "../../Context/WishlistContext";
+import { FaRegHeart } from "react-icons/fa";
 export default function Navbar() {
   const { token, setToken } = useContext(tokenContext);
   const { numOfCartItems } = useContext(CartContext);
+  const {numOfWishListItems} = useContext(WishlistContext);
   const navigate = useNavigate();
   function logoutUser() {
     setToken(null);
     navigate("/login");
   }
   return (
-    <nav>
+    <nav className="bg-gray-100 py-3 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex items-center space-x-8">
           <Link
@@ -52,7 +56,7 @@ export default function Navbar() {
               className="hidden w-full md:block md:w-auto"
               id="navbar-default"
             >
-              <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
                   <NavLink
                     to={"/"}
@@ -106,7 +110,7 @@ export default function Navbar() {
           )}
         </div>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium flex flex-col items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="font-medium flex flex-col items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {token && (
               <>
                 <li>
@@ -119,8 +123,23 @@ export default function Navbar() {
                     }
                   >
                     <BsCart3 className="text-xl" />
-                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex justify-center items-center bg-red-500 text-white p-2">
+                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex justify-center items-center bg-red-500 text-white">
                       {numOfCartItems}
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"wishlist"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "relative py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#5647ff] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "relative py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    }
+                  >
+                    <FaRegHeart className="text-xl" />
+                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex justify-center items-center bg-red-500 text-white">
+                      {numOfWishListItems}
                     </span>
                   </NavLink>
                 </li>

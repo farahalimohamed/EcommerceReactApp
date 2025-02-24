@@ -5,10 +5,12 @@ import ProductItem from "../ProductItem/ProductItem";
 import Loader from "../Loader/Loader";
 import { CartContext } from "../../Context/CartContext";
 import toast from "react-hot-toast";
+import { WishlistContext } from "../../Context/WishlistContext";
 
 export default function LatestProducts() {
   const [products, setProducts] = useState([]);
   const { addToCart, setNumOfCartItems, setCartId } = useContext(CartContext);
+  const { addToWishlist, setNumOfWishListItems } = useContext(WishlistContext);
 
   async function getProducts() {
     try {
@@ -43,8 +45,19 @@ export default function LatestProducts() {
       setNumOfCartItems(response.numOfCartItems);
       setCartId(response.cartId);
       toast.success(response.message);
+      setNumOfWishListItems(response.count);
     } else {
       toast.error("Error adding product to cart");
+    }
+  }
+
+  async function addProductToWishlist(id) {
+    let response = await addToWishlist(id);
+    if (response.status === "success") {
+      toast.success(response.message);
+      setNumOfWishListItems(response.data.length);
+    } else {
+      toast.error("Error adding product to wishlist");
     }
   }
 
@@ -59,6 +72,7 @@ export default function LatestProducts() {
                 <ProductItem
                   product={product}
                   addProductToCart={addProductToCart}
+                  addProductToWishlist={addProductToWishlist}
                 />
               </div>
             ))
