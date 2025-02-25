@@ -63,8 +63,8 @@ export default function CategorySlider() {
       <h2 className="text-2xl font-bold mb-5">Shop by Categories</h2>
       <Slider {...settings}>
         {categories.map((category) => (
-          <div key={category._id} className="flex flex-col items-center p-3 -space-x-3">
-            <div className="w-40 h-40 bg-gray-100 rounded-lg overflow-hidden shadow-md transition duration-300 transform hover:scale-105">
+          <div key={category._id} className="flex flex-col items-center p-3">
+            <div className="w-40 h-40 bg-gray-100 mx-auto rounded-lg overflow-hidden shadow-md transition duration-300 transform hover:scale-105">
               <img
                 src={category.image}
                 alt={category.name}
