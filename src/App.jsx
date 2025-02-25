@@ -24,6 +24,7 @@ import WishlistContextProvider from "./Context/WishlistContext";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import VerifyResetCode from "./Pages/VerifyResetCode/VerifyResetCode";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
+import NotFound from "./Pages/NotFound/NotFound";
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -103,6 +104,10 @@ export default function App() {
             </ProtectedRoutes>
           ),
         },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
       ],
     },
     {
@@ -120,7 +125,7 @@ export default function App() {
         {
           path: "forgot-password",
           element: <ForgotPassword />,
-        }
+        },
       ],
     },
   ]);
