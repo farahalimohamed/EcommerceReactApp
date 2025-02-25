@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./VerifyResetCode.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
@@ -8,10 +7,9 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import passImg from "./../../../public/assets/images/pay.webp";
 import { Helmet } from "react-helmet";
 
-export default function VerifyResetCode() {
+export default function VerifyResetCode({ email, onSubmit }) {
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const initialValues = {
     resetCode: "",
@@ -28,11 +26,11 @@ export default function VerifyResetCode() {
     try {
       const response = await axios.post(
         "https://ecommerce.routemisr.com/api/v1/auth/verifyResetCode",
-        data
+        { ...data, email }
       );
       setErrorMsg(null);
       setIsLoading(false);
-      navigate("/reset-password");
+      onSubmit();
     } catch (err) {
       setErrorMsg(err.response.data.message);
       setIsLoading(false);

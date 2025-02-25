@@ -120,15 +120,7 @@ export default function App() {
         {
           path: "forgot-password",
           element: <ForgotPassword />,
-        },
-        {
-          path: "verify-reset-code",
-          element: <VerifyResetCode />,
-        },
-        {
-          path: "reset-password",
-          element: <ResetPassword />,
-        },
+        }
       ],
     },
   ]);

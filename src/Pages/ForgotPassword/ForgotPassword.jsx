@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./ForgotPassword.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
@@ -8,35 +8,69 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { tokenContext } from "../../Context/TokenContext";
 import passImg from "./../../../public/assets/images/forgot.webp";
 import { Helmet } from "react-helmet";
+import VerifyResetCode from "../VerifyResetCode/VerifyResetCode";
+import ResetPassword from "../ResetPassword/ResetPassword";
 export default function ForgotPassword() {
+  const [currentView, setCurrentView] = useState("forgotPassword");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const handleEmailSubmit = (email) => {
+    setEmail(email);
+    setCurrentView("verifyResetCode");
+  };
+
+  const handleResetCodeSubmit = () => {
+    setCurrentView("resetPassword");
+  };
+
+  const handlePasswordReset = () => {
+    navigate("/login");
+  };
+
+  return (
+    <>
+      {currentView === "forgotPassword" && (
+        <ForgotPasswordForm onSubmit={handleEmailSubmit} />
+      )}
+      {currentView === "verifyResetCode" && (
+        <VerifyResetCode email={email} onSubmit={handleResetCodeSubmit} />
+      )}
+      {currentView === "resetPassword" && (
+        <ResetPassword email={email} onSubmit={handlePasswordReset} />
+      )}
+    </>
+  );
+}
+
+function ForgotPasswordForm({ onSubmit }) {
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const { setToken } = useContext(tokenContext);
+
   const initialValues = {
     email: "",
   };
+
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
   });
+
   async function handleForgotPassword(data) {
     setIsLoading(true);
-    const response = await axios
-      .post("https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords", data)
-      .then((res) => {
-        console.log(res.data.token)
-        setToken(res.data.token);
-        localStorage.setItem("token", res.data.token);
-        setErrorMsg(null);
-        setIsLoading(false);
-        navigate("/verify-reset-code");
-      })
-      .catch((err) => {
-        setErrorMsg(err.response.data.message);
-        setIsLoading(false);
-      });
+    try {
+      const response = await axios.post(
+        "https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords",
+        data
+      );
+      setErrorMsg(null);
+      setIsLoading(false);
+      onSubmit(data.email);
+    } catch (err) {
+      setErrorMsg(err.response.data.message);
+      setIsLoading(false);
+    }
   }
 
   const formik = useFormik({
@@ -44,6 +78,7 @@ export default function ForgotPassword() {
     validationSchema,
     onSubmit: handleForgotPassword,
   });
+
   return (
     <section className="flex items-center justify-center min-h-screen bg-[#978eff46]">
       <Helmet>
