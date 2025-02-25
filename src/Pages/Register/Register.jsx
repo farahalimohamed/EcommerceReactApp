@@ -5,7 +5,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import registerImg from "./../../../public/assets/images/online-shopping.webp"; 
+import registerImg from "./../../../public/assets/images/shop.webp"; 
 import { Helmet } from "react-helmet";
 
 export default function Register() {

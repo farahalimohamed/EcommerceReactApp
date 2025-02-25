@@ -5,16 +5,15 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import passImg from "./../../../public/assets/images/forgot.webp";
+import passImg from "./../../../public/assets/images/sale2.webp";
 import { Helmet } from "react-helmet";
 
-export default function ResetPassword() {
+export default function ResetPassword({ email, onSubmit }) {
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const initialValues = {
-    email: "",
+    email: email,
     newPassword: "",
   };
 
@@ -36,7 +35,7 @@ export default function ResetPassword() {
       );
       setErrorMsg(null);
       setIsLoading(false);
-      navigate("/login");
+      onSubmit();
     } catch (err) {
       setErrorMsg(err.response.data.message);
       setIsLoading(false);
