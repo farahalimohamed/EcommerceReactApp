@@ -1,5 +1,4 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import styles from "./Navbar.module.css";
 import Logo from "./../../../public/assets/images/freshcart-logo.svg";
 import { useContext } from "react";
 import { tokenContext } from "../../Context/TokenContext";

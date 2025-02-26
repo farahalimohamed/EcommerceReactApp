@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import styles from "./Brands.module.css";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import Loader from "../../Components/Loader/Loader"; 

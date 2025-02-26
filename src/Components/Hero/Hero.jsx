@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"; 
-import styles from "./Hero.module.css";
 import mainImg from "../../../public/assets/images/girl-shopping.webp";
 import { Link } from "react-router-dom";
 export default function Hero() {

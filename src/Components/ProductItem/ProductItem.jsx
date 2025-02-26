@@ -1,5 +1,4 @@
 import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
-import styles from "./ProductItem.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 export default function ProductItem({ product, addProductToCart, addProductToWishlist }) {

@@ -1,5 +1,4 @@
 import axios from "axios";
-import styles from "./ProductDetails.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";

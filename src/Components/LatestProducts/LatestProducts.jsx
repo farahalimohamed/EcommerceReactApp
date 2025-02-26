@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import styles from "./LatestProducts.module.css";
 import axios from "axios";
 import ProductItem from "../ProductItem/ProductItem";
 import Loader from "../Loader/Loader";

@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./ForgotPassword.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { tokenContext } from "../../Context/TokenContext";
 import passImg from "./../../../public/assets/images/forgot.webp";
 import { Helmet } from "react-helmet";
 import VerifyResetCode from "../VerifyResetCode/VerifyResetCode";

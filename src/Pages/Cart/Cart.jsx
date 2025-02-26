@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet";
-import styles from "./Cart.module.css";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
