@@ -64,7 +64,7 @@ export default function Cart() {
       </Helmet>
       {cartData ? (
         cartData.products && cartData.products.length > 0 ? (
-          <div className="max-w-5xl max-md:max-w-xl mx-auto bg-white py-4 mb-6">
+          <div className="max-w-5xl max-md:max-w-md mx-auto bg-white py-4 mb-6">
             <h1 className="text-3xl font-bold text-gray-800 text-center">
               Shopping Cart
             </h1>

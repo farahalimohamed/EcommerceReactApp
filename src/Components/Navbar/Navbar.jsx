@@ -109,8 +109,8 @@ export default function Navbar() {
             </div>
           )}
         </div>
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium flex flex-col items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <div className="w-full md:w-auto" id="navbar-default">
+          <ul className="font-medium flex flex-row items-center gap-5 p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {token && (
               <>
                 <li>
@@ -118,13 +118,15 @@ export default function Navbar() {
                     to={"cart"}
                     className={({ isActive }) =>
                       isActive
-                        ? "relative py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#5647ff] md:p-0 dark:text-white md:dark:text-[#6456FF]"
-                        : "relative py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        ? "relative py-2 px-3 text-[#6456FF] font-semibold rounded md:bg-transparent md:text-[#5647ff] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "relative py-2 px-3 text-gray-900 rounded md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
                     <BsCart3 className="text-xl" />
-                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex justify-center items-center bg-red-500 text-white">
-                      {numOfCartItems}
+                    <span className="hidden md:flex absolute -top-3 -right-3 sm:-top-3 sm:-right-3">
+                      <span className="relative inline-flex justify-center items-center rounded-full h-5 w-5 bg-red-500 text-white text-xs">
+                        {numOfCartItems}
+                      </span>
                     </span>
                   </NavLink>
                 </li>
@@ -133,13 +135,15 @@ export default function Navbar() {
                     to={"wishlist"}
                     className={({ isActive }) =>
                       isActive
-                        ? "relative py-2 px-3 text-white font-semibold bg-[#6456FF] rounded md:bg-transparent md:text-[#5647ff] md:p-0 dark:text-white md:dark:text-[#6456FF]"
-                        : "relative py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        ? "relative py-2 px-3 text-[#6456FF] font-semibold rounded md:bg-transparent md:text-[#5647ff] md:p-0 dark:text-white md:dark:text-[#6456FF]"
+                        : "relative py-2 px-3 text-gray-900 rounded md:hover:bg-transparent md:border-0 md:hover:text-[#6456FF] md:p-0 dark:text-white md:dark:hover:text-[#5647ff] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     }
                   >
                     <FaRegHeart className="text-xl" />
-                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex justify-center items-center bg-red-500 text-white">
-                      {numOfWishListItems}
+                    <span className="hidden md:flex absolute -top-3 -right-3 sm:-top-3 sm:-right-3">
+                      <span className="relative inline-flex justify-center items-center rounded-full h-5 w-5 bg-red-500 text-white text-xs">
+                        {numOfWishListItems}
+                      </span>
                     </span>
                   </NavLink>
                 </li>
