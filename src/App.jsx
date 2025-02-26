@@ -1,32 +1,34 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./Pages/MainLayout/MainLayout";
 import AuthLayout from "./Pages/AuthLayout/AuthLayout";
-import Home from "./Pages/Home/Home";
-import Products from "./Pages/Products/Products";
-import Login from "./Pages/Login/Login";
-import Register from "./Pages/Register/Register";
-import Cart from "./Pages/Cart/Cart";
-import Categories from "./Pages/Categories/Categories";
 import TokenContextProvider from "./Context/TokenContext";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
-import ProductDetails from "./Pages/ProductDetails/ProductDetails";
 import { Offline } from "react-detect-offline";
 import { RiWifiOffLine } from "react-icons/ri";
 import CartContextProvider from "./Context/CartContext";
 import { Toaster } from "react-hot-toast";
-import Checkout from "./Pages/Checkout/Checkout";
-import AllOrders from "./Pages/AllOrders/AllOrders";
 import OrderContextProvider from "./Context/OrderContext";
-import Brands from "./Pages/Brands/Brands";
-import Wishlist from "./Pages/Wishlist/Wishlist";
 import WishlistContextProvider from "./Context/WishlistContext";
-import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
-import VerifyResetCode from "./Pages/VerifyResetCode/VerifyResetCode";
-import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import NotFound from "./Pages/NotFound/NotFound";
 
 export default function App() {
+  const Home = lazy(() => import("./Pages/Home/Home"));
+  const Products = lazy(() => import("./Pages/Products/Products"));
+  const Cart = lazy(() => import("./Pages/Cart/Cart"));
+  const Categories = lazy(() => import("./Pages/Categories/Categories"));
+  const Brands = lazy(() => import("./Pages/Brands/Brands"));
+  const Wishlist = lazy(() => import("./Pages/Wishlist/Wishlist"));
+  const Checkout = lazy(() => import("./Pages/Checkout/Checkout"));
+  const AllOrders = lazy(() => import("./Pages/AllOrders/AllOrders"));
+  const ProductDetails = lazy(() =>
+    import("./Pages/ProductDetails/ProductDetails")
+  );
+  const ForgotPassword = lazy(() =>
+    import("./Pages/ForgotPassword/ForgotPassword")
+  );
+  const Login = lazy(() => import("./Pages/Login/Login"));
+  const Register = lazy(() => import("./Pages/Register/Register"));
   const routes = createBrowserRouter([
     {
       path: "",
@@ -35,73 +37,91 @@ export default function App() {
         {
           index: true,
           element: (
-            <ProtectedRoutes>
-              <Home />
-            </ProtectedRoutes>
+            <Suspense>
+              <ProtectedRoutes>
+                <Home />
+              </ProtectedRoutes>
+            </Suspense>
           ),
         },
         {
           path: "products",
           element: (
-            <ProtectedRoutes>
-              <Products />
-            </ProtectedRoutes>
+            <Suspense>
+              <ProtectedRoutes>
+                <Products />
+              </ProtectedRoutes>
+            </Suspense>
           ),
         },
         {
           path: "productdetails/:productId",
           element: (
-            <ProtectedRoutes>
-              <ProductDetails />
-            </ProtectedRoutes>
+            <Suspense>
+              <ProtectedRoutes>
+                <ProductDetails />
+              </ProtectedRoutes>
+            </Suspense>
           ),
         },
         {
           path: "cart",
           element: (
-            <ProtectedRoutes>
-              <Cart />
-            </ProtectedRoutes>
+            <Suspense>
+              <ProtectedRoutes>
+                <Cart />
+              </ProtectedRoutes>
+            </Suspense>
           ),
         },
         {
           path: "checkout",
           element: (
-            <ProtectedRoutes>
-              <Checkout />
-            </ProtectedRoutes>
+            <Suspense>
+              <ProtectedRoutes>
+                <Checkout />
+              </ProtectedRoutes>
+            </Suspense>
           ),
         },
         {
           path: "allorders",
           element: (
-            <ProtectedRoutes>
-              <AllOrders />
-            </ProtectedRoutes>
+            <Suspense>
+              <ProtectedRoutes>
+                <AllOrders />
+              </ProtectedRoutes>
+            </Suspense>
           ),
         },
         {
           path: "categories",
           element: (
-            <ProtectedRoutes>
-              <Categories />
-            </ProtectedRoutes>
+            <Suspense>
+              <ProtectedRoutes>
+                <Categories />
+              </ProtectedRoutes>
+            </Suspense>
           ),
         },
         {
           path: "brands",
           element: (
-            <ProtectedRoutes>
-              <Brands />
-            </ProtectedRoutes>
+            <Suspense>
+              <ProtectedRoutes>
+                <Brands />
+              </ProtectedRoutes>
+            </Suspense>
           ),
         },
         {
           path: "wishlist",
           element: (
-            <ProtectedRoutes>
-              <Wishlist />
-            </ProtectedRoutes>
+            <Suspense>
+              <ProtectedRoutes>
+                <Wishlist />
+              </ProtectedRoutes>
+            </Suspense>
           ),
         },
         {
@@ -116,15 +136,27 @@ export default function App() {
       children: [
         {
           path: "login",
-          element: <Login />,
+          element: (
+            <Suspense>
+              <Login />
+            </Suspense>
+          ),
         },
         {
           path: "register",
-          element: <Register />,
+          element: (
+            <Suspense>
+              <Register />
+            </Suspense>
+          ),
         },
         {
           path: "forgot-password",
-          element: <ForgotPassword />,
+          element: (
+            <Suspense>
+              <ForgotPassword />
+            </Suspense>
+          ),
         },
       ],
     },

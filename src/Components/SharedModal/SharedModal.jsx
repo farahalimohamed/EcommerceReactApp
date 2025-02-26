@@ -1,4 +1,3 @@
-import styles from './SharedModal.module.css'
 export default function SharedModal({ selectedItem, hideModal }) {
   return (
     <>

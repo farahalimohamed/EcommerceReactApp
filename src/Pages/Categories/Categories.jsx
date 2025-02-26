@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import styles from "./Categories.module.css";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import Loader from "../../Components/Loader/Loader";

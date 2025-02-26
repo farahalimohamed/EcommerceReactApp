@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./Loader.module.css";
 import { RiShoppingCartFill } from "react-icons/ri";
 
 export default function Loader() {
