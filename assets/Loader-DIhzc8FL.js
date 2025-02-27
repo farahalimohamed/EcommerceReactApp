@@ -1,1 +1,0 @@
-import{j as e,R as t}from"./index-C6SzbBKQ.js";function a(){return e.jsx("div",{className:"flex flex-col justify-center items-center h-96",children:e.jsx(t,{className:"animate-pulse duration-1000 text-[#6456ff] text-7xl m-5"})})}export{a as L};
