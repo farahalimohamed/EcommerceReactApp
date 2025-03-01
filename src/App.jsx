@@ -29,138 +29,143 @@ export default function App() {
   );
   const Login = lazy(() => import("./Pages/Login/Login"));
   const Register = lazy(() => import("./Pages/Register/Register"));
-  const routes = createBrowserRouter([
+  const routes = createBrowserRouter(
+    [
+      {
+        path: "",
+        element: <MainLayout />,
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense>
+                <ProtectedRoutes>
+                  <Home />
+                </ProtectedRoutes>
+              </Suspense>
+            ),
+          },
+          {
+            path: "products",
+            element: (
+              <Suspense>
+                <ProtectedRoutes>
+                  <Products />
+                </ProtectedRoutes>
+              </Suspense>
+            ),
+          },
+          {
+            path: "productdetails/:productId",
+            element: (
+              <Suspense>
+                <ProtectedRoutes>
+                  <ProductDetails />
+                </ProtectedRoutes>
+              </Suspense>
+            ),
+          },
+          {
+            path: "cart",
+            element: (
+              <Suspense>
+                <ProtectedRoutes>
+                  <Cart />
+                </ProtectedRoutes>
+              </Suspense>
+            ),
+          },
+          {
+            path: "checkout",
+            element: (
+              <Suspense>
+                <ProtectedRoutes>
+                  <Checkout />
+                </ProtectedRoutes>
+              </Suspense>
+            ),
+          },
+          {
+            path: "allorders",
+            element: (
+              <Suspense>
+                <ProtectedRoutes>
+                  <AllOrders />
+                </ProtectedRoutes>
+              </Suspense>
+            ),
+          },
+          {
+            path: "categories",
+            element: (
+              <Suspense>
+                <ProtectedRoutes>
+                  <Categories />
+                </ProtectedRoutes>
+              </Suspense>
+            ),
+          },
+          {
+            path: "brands",
+            element: (
+              <Suspense>
+                <ProtectedRoutes>
+                  <Brands />
+                </ProtectedRoutes>
+              </Suspense>
+            ),
+          },
+          {
+            path: "wishlist",
+            element: (
+              <Suspense>
+                <ProtectedRoutes>
+                  <Wishlist />
+                </ProtectedRoutes>
+              </Suspense>
+            ),
+          },
+          {
+            path: "*",
+            element: <NotFound />,
+          },
+        ],
+      },
+      {
+        path: "/",
+        element: <AuthLayout />,
+        children: [
+          {
+            path: "login",
+            element: (
+              <Suspense>
+                <Login />
+              </Suspense>
+            ),
+          },
+          {
+            path: "register",
+            element: (
+              <Suspense>
+                <Register />
+              </Suspense>
+            ),
+          },
+          {
+            path: "forgot-password",
+            element: (
+              <Suspense>
+                <ForgotPassword />
+              </Suspense>
+            ),
+          },
+        ],
+      },
+    ],
     {
-      path: "",
-      element: <MainLayout />,
-      children: [
-        {
-          index: true,
-          element: (
-            <Suspense>
-              <ProtectedRoutes>
-                <Home />
-              </ProtectedRoutes>
-            </Suspense>
-          ),
-        },
-        {
-          path: "products",
-          element: (
-            <Suspense>
-              <ProtectedRoutes>
-                <Products />
-              </ProtectedRoutes>
-            </Suspense>
-          ),
-        },
-        {
-          path: "productdetails/:productId",
-          element: (
-            <Suspense>
-              <ProtectedRoutes>
-                <ProductDetails />
-              </ProtectedRoutes>
-            </Suspense>
-          ),
-        },
-        {
-          path: "cart",
-          element: (
-            <Suspense>
-              <ProtectedRoutes>
-                <Cart />
-              </ProtectedRoutes>
-            </Suspense>
-          ),
-        },
-        {
-          path: "checkout",
-          element: (
-            <Suspense>
-              <ProtectedRoutes>
-                <Checkout />
-              </ProtectedRoutes>
-            </Suspense>
-          ),
-        },
-        {
-          path: "allorders",
-          element: (
-            <Suspense>
-              <ProtectedRoutes>
-                <AllOrders />
-              </ProtectedRoutes>
-            </Suspense>
-          ),
-        },
-        {
-          path: "categories",
-          element: (
-            <Suspense>
-              <ProtectedRoutes>
-                <Categories />
-              </ProtectedRoutes>
-            </Suspense>
-          ),
-        },
-        {
-          path: "brands",
-          element: (
-            <Suspense>
-              <ProtectedRoutes>
-                <Brands />
-              </ProtectedRoutes>
-            </Suspense>
-          ),
-        },
-        {
-          path: "wishlist",
-          element: (
-            <Suspense>
-              <ProtectedRoutes>
-                <Wishlist />
-              </ProtectedRoutes>
-            </Suspense>
-          ),
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-      ],
-    },
-    {
-      path: "/",
-      element: <AuthLayout />,
-      children: [
-        {
-          path: "login",
-          element: (
-            <Suspense>
-              <Login />
-            </Suspense>
-          ),
-        },
-        {
-          path: "register",
-          element: (
-            <Suspense>
-              <Register />
-            </Suspense>
-          ),
-        },
-        {
-          path: "forgot-password",
-          element: (
-            <Suspense>
-              <ForgotPassword />
-            </Suspense>
-          ),
-        },
-      ],
-    },
-  ]);
+      basename: "/EcommerceReactApp",
+    }
+  );
   return (
     <TokenContextProvider>
       <OrderContextProvider>
