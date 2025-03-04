@@ -163,7 +163,7 @@ export default function App() {
       },
     ],
     {
-      basename: "/EcommerceReactApp",
+      basename: "/",
     }
   );
   return (
